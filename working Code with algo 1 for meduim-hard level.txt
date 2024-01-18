@@ -1,0 +1,158 @@
+#include<stdio.h>
+int arr[9][9][9];
+int exi[9]={0,0,0,0,0,0,0,0,0};
+
+
+void print();
+void print2();
+void giv_exi();
+void slbb();
+int algo1(int);
+
+int main()
+{
+	int i,j;
+	for(i=0;i<9;i++)
+	{
+		for(j=0;j<9;j++)
+		{
+			scanf("%d",&arr[i][j][0]);
+		}
+		printf("\n");
+	}
+	print();
+	algo1(1);
+	//algo1(1);
+	print();
+}
+
+void giv_exi(int i, int j)
+{
+	int x,y;
+	for(x=0;x<9;x++)
+	{
+		if(arr[i][x][0]!=0)
+			exi[(arr[i][x][0])-1]=1;
+	}
+	for(x=0;x<9;x++)
+	{
+		if(arr[x][j][0]!=0)
+			exi[(arr[x][j][0])-1]=1;
+	}
+	for(x=(i/3)*3;x<=2+((i/3)*3);x++)
+	{
+		for(y=(j/3)*3;y<=2+((j/3)*3);y++)
+		{
+			if(arr[x][y][0]!=0)
+				exi[(arr[x][y][0])-1]=1;
+		}
+	}
+}
+
+void slbb()
+{
+	int i,j,k,l,t=1;
+	for(i=0;i<9;i++)
+	{
+		for(j=0;j<9;j++)
+		{
+			
+			if (arr[i][j][0]==0)
+			{
+				for(k=0;k<9;k++)
+				{
+				exi[k]=0;
+				}
+				giv_exi(i,j);
+				t=1;
+				for(k=0;k<9;k++)
+				{
+					arr[i][j][t]=0;
+					if(exi[k]==0)
+					{
+						//printf("i=%d j=%d pussi=%d\n",i,j,k+1);
+						arr[i][j][t]=k+1;
+						t++;
+					}
+					arr[i][j][t+1]=0;
+				}
+			}
+		}
+		//printf("\n");
+	}
+	
+}
+
+void print()
+{
+	int i,j;
+	for(i=0;i<9;i++)
+	{
+		for(j=0;j<9;j++)
+		{
+			printf("%d ",arr[i][j][0]);
+			if((j+1)%3==0)
+				printf("|");
+		}
+		if((i+1)%3==0)
+		{
+			printf("\n");
+			printf("______________________");
+		}
+		printf("\n");
+	}
+}
+
+int algo1(int x)
+{
+	slbb();
+	if(x==0)
+		return 0;
+	else
+	{
+	
+	int i,j,k=0;
+	x=0;
+	printf("\n\n");
+	for(i=0;i<9;i++)
+	{
+		for(j=0;j<9;j++)
+		{
+//			while(arr[])
+//			{
+//			
+//			}
+			
+			if((arr[i][j][0])==0 && (arr[i][j][2]==0))
+			{
+//				printf("true");
+				x=1;
+				for(k=0;k<9;k++)
+					k==0?(arr[i][j][k]=arr[i][j][1]):(arr[i][j][k]=0);
+			}
+		}
+		
+	}
+//		print();
+//		print2();	
+		return algo1(x);
+	}
+}
+void print2()
+{
+	int i,j,k=0;
+	for(i=0;i<9;i++)
+	{
+		for(j=0;j<9;j++)
+		{
+			
+			for(k=0;k<9;k++)
+			{
+				printf("i=%d j=%d k=%d\t%d\n",i,j,k,arr[i][j][k]);
+			}
+			printf("______________________________________________________________________________________________________________________\n");
+		}
+		
+		//printf("\n\n\n");
+	}
+}
